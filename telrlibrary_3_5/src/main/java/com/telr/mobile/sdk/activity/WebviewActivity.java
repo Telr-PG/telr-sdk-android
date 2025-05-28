@@ -672,11 +672,14 @@ public class WebviewActivity extends AppCompatActivity implements InitiatePaymen
                     .build();
             Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
 
-            Logger.w(response.toString());
             saveLogcatToFile(WebviewActivity.this);
             //---------------------------------------------------------------------
             Intent intent = new Intent();
-            intent.putExtra(PAYMENT_RESPONSE,(StatusResponse) response.getBody());
+            if(response == null) {
+                intent.putExtra(PAYMENT_RESPONSE,(StatusResponse) null);
+            } else {
+                intent.putExtra(PAYMENT_RESPONSE,(StatusResponse) response.getBody());
+            }
             intent.putExtra("Code",telrSharedPreference.getDataFromPreference("Code"));
             intent.putExtra("auth","no");
             setResult(Activity.RESULT_OK,intent);

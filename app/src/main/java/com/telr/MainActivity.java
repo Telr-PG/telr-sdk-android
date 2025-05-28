@@ -333,57 +333,58 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 StatusResponse status = (StatusResponse) intent.getParcelableExtra(WebviewActivity.PAYMENT_RESPONSE);
+                if(status != null) {
+                    AlertDialog.Builder builder11 = new AlertDialog.Builder(MainActivity.this);
+                    builder11.setMessage("Thank you! The transaction is " + status.getAuth().getMessage());
+                    builder11.setCancelable(true);
 
-                AlertDialog.Builder builder11 = new AlertDialog.Builder(MainActivity.this);
-                builder11.setMessage("Thank you! The transaction is " + status.getAuth().getMessage());
-                builder11.setCancelable(true);
-
-                builder11.setPositiveButton(
-                        "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                    builder11.setPositiveButton(
+                    		"OK",
+                    		new DialogInterface.OnClickListener() {
+                    			public void onClick(DialogInterface dialog, int id) {
+                    				dialog.cancel();
 //                                webView.clearCache(true);
 //                                getSavedCardDetails();
 //                                webView.setVisibility(View.VISIBLE);
-                            }
-                        });
+                    			}
+                    });
 
 
-                AlertDialog alert111 = builder11.create();
-                alert111.show();
+                    AlertDialog alert111 = builder11.create();
+                    alert111.show();
 //
 //                TextView textView = (TextView) findViewById(R.id.text_payment_result);
 //                TextView txt_code = (TextView) findViewById(R.id.txt_code);
 //                txt_code.setText("Code : " + intent.getStringExtra("Code"));
 //                textView.setText(textView.getText() + " : " + status.getTrace());
-                //  Log.e("CODEZZZ",":"+ TelrSharedPreference.getInstance(this).getDataFromPreference("Code"));
+//  Log.e("CODEZZZ",":"+ TelrSharedPreference.getInstance(this).getDataFromPreference("Code"));
 
-                if (status.getAuth() != null) {
+                    if (status.getAuth() != null) {
 //                    FL.d(status.getAuth().getStatus());
-                    status.getAuth().getStatus();   // Authorisation status. A indicates an authorised transaction. H also indicates an authorised transaction, but where the transaction has been placed on hold. Any other value indicates that the request could not be processed.
-                    status.getAuth().getAvs();      /* Result of the AVS check:
-                                            Y = AVS matched OK
-                                            P = Partial match (for example, post-code only)
-                                            N = AVS not matched
-                                            X = AVS not checked
-                                            E = Error, unable to check AVS */
-                    status.getAuth().getCode();     // If the transaction was authorised, this contains the authorisation code from the card issuer. Otherwise it contains a code indicating why the transaction could not be processed.
-                    status.getAuth().getMessage();  // The authorisation or processing error message.
-                    status.getAuth().getCa_valid();
-                    status.getAuth().getCardcode(); // Code to indicate the card type used in the transaction. See the code list at the end of the document for a list of card codes.
-                    status.getAuth().getCardlast4();// The last 4 digits of the card number used in the transaction. This is supplied for all payment types (including the Hosted Payment Page method) except for PayPal.
-                    status.getAuth().getCvv();      /* Result of the CVV check:
-                                           Y = CVV matched OK
-                                           N = CVV not matched
-                                           X = CVV not checked
-                                           E = Error, unable to check CVV */
-                    status.getAuth().getTranref(); //The payment gateway transaction reference allocated to this request.
-                    status.getAuth().getCard().getFirst6(); // The first 6 digits of the card number used in the transaction, only for version 2 is submitted in Tran -> Version
-                    status.getAuth().getCard().getCountry();
+                    	status.getAuth().getStatus();   // Authorisation status. A indicates an authorised transaction. H also indicates an authorised transaction, but where the transaction has been placed on hold. Any other value indicates that the request could not be processed.
+                    	status.getAuth().getAvs();      /* Result of the AVS check:
+							Y = AVS matched OK
+							P = Partial match (for example, post-code only)
+							N = AVS not matched
+							X = AVS not checked
+							E = Error, unable to check AVS */
+                    	status.getAuth().getCode();     // If the transaction was authorised, this contains the authorisation code from the card issuer. Otherwise it contains a code indicating why the transaction could not be processed.
+                    	status.getAuth().getMessage();  // The authorisation or processing error message.
+                    	status.getAuth().getCa_valid();
+                    	status.getAuth().getCardcode(); // Code to indicate the card type used in the transaction. See the code list at the end of the document for a list of card codes.
+                    	status.getAuth().getCardlast4();// The last 4 digits of the card number used in the transaction. This is supplied for all payment types (including the Hosted Payment Page method) except for PayPal.
+                    	status.getAuth().getCvv();      /* Result of the CVV check:
+						   Y = CVV matched OK
+						   N = CVV not matched
+						   X = CVV not checked
+						   E = Error, unable to check CVV */
+                    	status.getAuth().getTranref(); //The payment gateway transaction reference allocated to this request.
+                    	status.getAuth().getCard().getFirst6(); // The first 6 digits of the card number used in the transaction, only for version 2 is submitted in Tran -> Version
+                    	status.getAuth().getCard().getCountry();
 
-                    status.getAuth().getCard().getExpiry().getMonth();
-                    status.getAuth().getCard().getExpiry().getYear();
+                    	status.getAuth().getCard().getExpiry().getMonth();
+                    	status.getAuth().getCard().getExpiry().getYear();
+                    }
                 }
             }
 //            StatusResponse status = intent.getParcelableExtra(WebviewActivity.PAYMENT_RESPONSE);
