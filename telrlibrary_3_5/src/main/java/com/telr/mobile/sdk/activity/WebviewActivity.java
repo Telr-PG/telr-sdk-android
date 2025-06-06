@@ -387,6 +387,7 @@ public class WebviewActivity extends AppCompatActivity implements InitiatePaymen
                     webView.getSettings().setAllowFileAccess(true);
                     webView.getSettings().setDomStorageEnabled(true);
                     webView.getSettings().setSupportMultipleWindows(true);
+                    webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
                 }
                 else
                 {
@@ -395,7 +396,6 @@ public class WebviewActivity extends AppCompatActivity implements InitiatePaymen
                 }
                 webView.setWebViewClient(new WebViewClient()
                 {
-
                     public void onPageStarted(WebView view, String url, Bitmap favicon)
                     {
                         super.onPageStarted(view, url, favicon);
@@ -418,9 +418,12 @@ public class WebviewActivity extends AppCompatActivity implements InitiatePaymen
                             statusTask.execute(completeUrl, statusRequest);
                             telrSharedPreference.saveDataToPreference("Code", ((MobileResponse) response.getBody()).getWebview().getCode());
                             progressBar.setVisibility(View.VISIBLE);
-                            // Log.e("CODEXXXX",":"+((MobileResponse) response.getBody()).getWebview().getCode());
                         }
-
+                    }
+                    public void onPageFinished(WebView view, String url) 
+                    {    
+                        super.onPageFinished(view, url);    
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
 
